@@ -14,7 +14,7 @@
     - `cloudlaunch-sitevol-michaelaworetan`: Created to be visible but with its contents inaccessible to the designated IAM user. Public access was blocked.
 2. **Static Website:** The provided HTML, CSS, and JS files were uploaded to the `cloudlaunch-sitepub-michaelaworetan` bucket, and static website hosting was enabled in the bucket properties.
 3. **IAM User & Policy:** An IAM user named `cloudlaunch-user` was created. A custom policy was attached to this user to enforce strict access controls on the S3 buckets and provide read-only access to VPC components. The policy explicitly denies `DeleteObject` permissions on all buckets.
-4. **CloudFront (Bonus):** A CloudFront distribution was set up in front of the [https://cloudlaunch-sitepub-michaelaworetan.s3.eu-west-1.amazonaws.com/index.html](https://cloudlaunch-sitepub-michaelaworetan.s3.eu-west-1.amazonaws.com/index.html) to provide **HTTPS** and **global caching**, improving website security and performance.
+4. **CloudFront (Bonus):** A CloudFront distribution was set up in front of the [https://dze8vneqs3jx1.cloudfront.net](dze8vneqs3jx1.cloudfront.net) to provide **HTTPS** and **global caching**, improving website security and performance.
 
 ---
 
