@@ -14,7 +14,7 @@
     - `cloudlaunch-sitevol-michaelaworetan`: Created to be visible but with its contents inaccessible to the designated IAM user. Public access was blocked.
 2. **Static Website:** The provided HTML, CSS, and JS files were uploaded to the `cloudlaunch-sitepub-michaelaworetan` bucket, and static website hosting was enabled in the bucket properties.
 3. **IAM User & Policy:** An IAM user named `cloudlaunch-user` was created. A custom policy was attached to this user to enforce strict access controls on the S3 buckets and provide read-only access to VPC components. The policy explicitly denies `DeleteObject` permissions on all buckets.
-4. **CloudFront (Bonus):** A CloudFront distribution was set up in front of the [https://dze8vneqs3jx1.cloudfront.net](dze8vneqs3jx1.cloudfront.net) to provide **HTTPS** and **global caching**, improving website security and performance.
+4. **CloudFront (Bonus):** A CloudFront distribution was set up in front of the [https://d3letilqoeh4fj.cloudfront.net](https://d3letilqoeh4fj.cloudfront.net) to provide **HTTPS** and **global caching**, improving website security and performance.
 
 ---
 
@@ -41,56 +41,72 @@
 
 ### **CloudFront URL**
 
-`https://cloudlaunch-sitepub-michaelaworetan.s3.eu-west-1.amazonaws.com/index.html` (Example URL, replace with your distribution's domain name)
+[https://d3letilqoeh4fj.cloudfront.net](https://d3letilqoeh4fj.cloudfront.net)
 
 ### **IAM Policy for `cloudlaunch-user`**
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": "arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan/*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan/*"
-        },
-        {
-            "Effect": "Allow",
-            "Action": "s3:ListBucket",
-            "Resource": [
-                "arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan",
-                "arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan",
-                "arn:aws:s3:::cloudlaunch-sitevol-michaelaworetan"
-            ]
-        },
-        {
-            "Effect": "Deny",
-            "Action": "s3:DeleteObject",
-            "Resource": [
-                "arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan/*",
-                "arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan/*",
-                "arn:aws:s3:::cloudlaunch-sitevol-michaelaworetan/*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeVpcs",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeRouteTables",
-                "ec2:DescribeSecurityGroups"
-            ],
-            "Resource": "*"
-        }
-    ]
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"s3:ListAllMyBuckets",
+				"s3:GetBucketLocation"
+			],
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"s3:GetObject",
+				"s3:PutObject"
+			],
+			"Resource": "arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan/*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan/*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": "s3:ListBucket",
+			"Resource": [
+				"arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan",
+				"arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan"
+			]
+		},
+		{
+			"Effect": "Deny",
+			"Action": "s3:DeleteObject",
+			"Resource": [
+				"arn:aws:s3:::cloudlaunch-sitepub-michaelaworetan/*",
+				"arn:aws:s3:::cloudlaunch-siteprivate-michaelaworetan/*",
+				"arn:aws:s3:::cloudlaunch-sitevol-michaelaworetan/*"
+			]
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"ec2:DescribeVpcs",
+				"ec2:DescribeSubnets",
+				"ec2:DescribeRouteTables",
+				"ec2:DescribeSecurityGroups",
+				"ec2:DescribeVpcAttribute",
+				"ec2:DescribeNetworkAcls",
+				"ec2:DescribeDhcpOptions",
+				"ec2:DescribeInternetGateways",
+				"ec2:DescribeNatGateways",
+				"ec2:DescribeVpcEndpoints",
+				"ec2:DescribeFlowLogs",
+				"ec2:DescribeVpcPeeringConnections",
+				"ec2:DescribeEgressOnlyInternetGateways"
+			],
+			"Resource": "*"
+		}
+	]
 }
 
 ```
